@@ -1,3 +1,4 @@
+import random
 import tkinter as tk
 from tkinter import messagebox
 # Multi-line ASCII art for the title
@@ -128,6 +129,17 @@ def find_best_move(board):
                     move = (i, j)
     return move
 
+# to make Medium‑level move: ε‑greedy over the perfect Minimax move
+def find_medium_move(board, epsilon=0.30):
+    """Return a move (row, col). 30 % of the time it is random."""
+    empties = [(i, j) for i in range(3) for j in range(3) if board[i][j] == " "]
+    
+    # With probability ε → random move
+    if random.random() < epsilon:
+        return random.choice(empties)
+    
+    # Otherwise pick the optimal move from Minimax
+    return find_best_move(board)
 
 def bot_click(x, y, button, grid, buttons):
     if grid[x][y] == " ":  # Player's move
@@ -139,7 +151,7 @@ def bot_click(x, y, button, grid, buttons):
             disable_all_buttons(buttons)
             return
 
-        move = find_best_move(grid)  # Bot calculates the best move
+        move = find_medium_move(grid, epsilon=0.30) # ε → random move
         if move:
             grid[move[0]][move[1]] = "X"
             buttons[move[0]][move[1]].config(text="X", state="disabled")
@@ -165,16 +177,12 @@ def create_bot_board(root):
             button.grid(row=row, column=col, padx=5, pady=5)
             buttons[row][col] = button  # Store button reference in the 2D list
 
-####
-
 # Create the main game window
 def create_bot():
     root = tk.Tk()
     root.title("Tic Tac Toe")
     create_bot_board(root)
     root.mainloop()
-
-####
 
 # Create main menu interface
 def create_tic_tac_toe_interface():
@@ -192,15 +200,6 @@ def create_tic_tac_toe_interface():
         justify="center"
     )
     title_label.pack(pady=20)
-    # prototype upcoming version
-    # Load an image
-    # image = PhotoImage(file=f"C:\Users\psvma\OneDrive\Pictures\Saved Pictures\logo.jpg")  
-    # Ensure it's a supported format, like .png or .gif
-
-    # # Add the image to a label
-    # label = Label(root, image=image)
-    # label.pack()
-
 
     play_button = tk.Button(
         root,
@@ -223,7 +222,6 @@ def create_tic_tac_toe_interface():
         padx=20,
         pady=10,
         command=create_bot
-        # state="disabled"
     )
     play_button2.pack(pady=20)
 
