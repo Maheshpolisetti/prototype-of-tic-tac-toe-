@@ -5,7 +5,9 @@ A simple and interactive Tic Tac Toe game built using Python and Tkinter.
 Features:
 
 Two Player Mode: Play with a friend on the same computer.
-Single Player Mode: Play against the computer AI, powered by the Minimax algorithm for optimal moves and challenge.
+
+Single Player Mode: Play against the computer AI, powered by the ε‑greedy, Minimax algorithm for optimal moves and challenge.
+
 User-friendly GUI: Easy to use interface designed with Tkinter.
 
 How to Play:
