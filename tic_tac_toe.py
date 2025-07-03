@@ -215,7 +215,7 @@ def create_tic_tac_toe_interface():
 
     play_button2 = tk.Button(
         root,
-        text="Play Computer (prototype)",
+        text="Play Computer",
         font=("Helvetica", 12),
         bg="green",
         fg="white",
